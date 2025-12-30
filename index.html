@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shree Ganesh Super Market - Rashin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Fredoka+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #2ecc71; /* Fresh Green */
+            --secondary: #e74c3c; /* Offer Red */
+            --dark: #2c3e50;
+            --light: #f8f9fa;
+            --white: #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+        }
+
+        /* --- Header --- */
+        header {
+            background-color: var(--white);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.8rem;
+            color: var(--primary);
+        }
+        
+        .logo span { color: var(--secondary); }
+
+        .search-bar {
+            display: none; /* Hidden on mobile, active on desktop */
+            background: #f1f1f1;
+            padding: 8px 15px;
+            border-radius: 20px;
+            width: 40%;
+        }
+
+        .cart-icon {
+            position: relative;
+            font-size: 1.5rem;
+            color: var(--dark);
+            cursor: pointer;
+        }
+
+        .badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--secondary);
+            color: white;
+            font-size: 0.7rem;
+            padding: 4px 6px;
+            border-radius: 50%;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            background: linear-gradient(rgba(46, 204, 113, 0.9), rgba(46, 204, 113, 0.7)), url('https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 60px 5%;
+            text-align: center;
+            color: white;
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+        }
+
+        .hero h1 { font-size: 2.5rem; margin-bottom: 10px; font-weight: 700; }
+        .hero p { font-size: 1.2rem; margin-bottom: 20px; }
+        
+        .offer-btn {
+            background: var(--white);
+            color: var(--primary);
+            padding: 10px 25px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 50px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+
+        /* --- Categories (Gol Gol Icons) --- */
+        .categories {
+            padding: 40px 5%;
+            text-align: center;
+        }
+
+        .cat-scroll {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .cat-item {
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .cat-item:hover { transform: scale(1.1); }
+
+        .cat-img {
+            width: 80px;
+            height: 80px;
+            background: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            margin-bottom: 10px;
+            border: 2px solid var(--primary);
+            overflow: hidden;
+        }
+
+        .cat-img img { width: 60%; }
+        .cat-item h4 { font-size: 0.9rem; font-weight: 500; }
+
+        /* --- Products Grid --- */
+        .section-title {
+            padding: 0 5%;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .section-title h2 { font-size: 1.5rem; color: var(--dark); }
+        .view-all { color: var(--primary); text-decoration: none; font-weight: bold; }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 15px;
+            padding: 0 5% 40px;
+        }
+
+        .product-card {
+            background: var(--white);
+            border-radius: 10px;
+            padding: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            text-align: center;
+            position: relative;
+            border: 1px solid transparent;
+            transition: 0.3s;
+        }
+
+        .product-card:hover { border-color: var(--primary); }
+
+        .discount-tag {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: var(--secondary);
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .product-img {
+            width: 100%;
+            height: 120px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+
+        .p-name { font-size: 1rem; font-weight: 500; margin-bottom: 5px; color: var(--dark); }
+        .p-weight { font-size: 0.8rem; color: #777; margin-bottom: 5px; }
+        
+        .price-box {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .current-price { color: var(--dark); font-weight: bold; }
+        .old-price { text-decoration: line-through; color: #999; font-size: 0.8rem; }
+
+        .add-btn {
+            width: 100%;
+            padding: 8px;
+            background: white;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .add-btn:hover { background: var(--primary); color: white; }
+
+        /* --- Quick List Feature (USP) --- */
+        .quick-list {
+            background: #fff3cd;
+            margin: 20px 5%;
+            padding: 30px;
+            border-radius: 15px;
+            border: 2px dashed #ffc107;
+            text-align: center;
+        }
+
+        .quick-list textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin: 15px 0;
+            font-family: inherit;
+        }
+
+        /* --- Footer --- */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 30px 5%;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        /* WhatsApp Float */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #25d366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            z-index: 100;
+        }
+
+        @media (min-width: 768px) {
+            .search-bar { display: block; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">Shree<span>Ganesh</span></div>
+        <div class="search-bar">Search for dal, sugar, soap...</div>
+        <div class="cart-icon">
+            <i class="fas fa-shopping-basket"></i>
+            <span class="badge">2</span>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h1>Monthly Grocery Sale!</h1>
+        <p>Get up to 30% OFF on Oil & Grains. Free Delivery in Rashin.</p>
+        <a href="#deals" class="offer-btn">Shop Offers</a>
+    </section>
+
+    <section class="categories">
+        <h3 style="margin-bottom: 20px; color: var(--dark);">Shop by Category</h3>
+        <div class="cat-scroll">
+            <div class="cat-item">
+                <div class="cat-img"><i class="fas fa-seedling" style="font-size:30px; color:var(--primary);"></i></div>
+                <h4>Grains (धान्य)</h4>
+            </div>
+            <div class="cat-item">
+                <div class="cat-img"><i class="fas fa-tint" style="font-size:30px; color:#f39c12;"></i></div>
+                <h4>Oil (तेल)</h4>
+            </div>
+            <div class="cat-item">
+                <div class="cat-img"><i class="fas fa-cookie-bite" style="font-size:30px; color:#8e44ad;"></i></div>
+                <h4>Snacks</h4>
+            </div>
+            <div class="cat-item">
+                <div class="cat-img"><i class="fas fa-soap" style="font-size:30px; color:#3498db;"></i></div>
+                <h4>Hygiene</h4>
+            </div>
+            <div class="cat-item">
+                <div class="cat-img"><i class="fas fa-mug-hot" style="font-size:30px; color:#e74c3c;"></i></div>
+                <h4>Tea/Coffee</h4>
+            </div>
+        </div>
+    </section>
+
+    <section id="deals">
+        <div class="section-title">
+            <h2>Daily Essentials</h2>
+            <a href="#" class="view-all">View All</a>
+        </div>
+
+        <div class="product-grid">
+            <div class="product-card">
+                <span class="discount-tag">10% OFF</span>
+                <img src="https://images.unsplash.com/photo-1586201375761-83865001e31c?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=60" alt="Rice" class="product-img">
+                <div class="p-name">Basmati Rice</div>
+                <div class="p-weight">1 Kg Pack</div>
+                <div class="price-box">
+                    <span class="current-price">₹120</span>
+                    <span class="old-price">₹140</span>
+                </div>
+                <button class="add-btn">Add to Cart</button>
+            </div>
+
+            <div class="product-card">
+                <span class="discount-tag">Save ₹20</span>
+                <img src="https://images.unsplash.com/photo-1474979266404-7cadd259c308?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=60" alt="Oil" class="product-img">
+                <div class="p-name">Sunflower Oil</div>
+                <div class="p-weight">1 Litre Bottle</div>
+                <div class="price-box">
+                    <span class="current-price">₹150</span>
+                    <span class="old-price">₹170</span>
+                </div>
+                <button class="add-btn">Add to Cart</button>
+            </div>
+
+            <div class="product-card">
+                <span class="discount-tag">Best Seller</span>
+                <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=60" alt="Biscuits" class="product-img">
+                <div class="p-name">Parle-G Gold</div>
+                <div class="p-weight">12 Pack Box</div>
+                <div class="price-box">
+                    <span class="current-price">₹50</span>
+                    <span class="old-price">₹60</span>
+                </div>
+                <button class="add-btn">Add to Cart</button>
+            </div>
+
+            <div class="product-card">
+                <span class="discount-tag">5% OFF</span>
+                <img src="https://images.unsplash.com/photo-1623348398246-13a8b4594c8e?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=60" alt="Sugar" class="product-img">
+                <div class="p-name">Premium Sugar</div>
+                <div class="p-weight">1 Kg</div>
+                <div class="price-box">
+                    <span class="current-price">₹42</span>
+                    <span class="old-price">₹45</span>
+                </div>
+                <button class="add-btn">Add to Cart</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="quick-list">
+        <h3>📝 Quick Order by List</h3>
+        <p>तुम्हाला काय पाहिजे ते खाली टाईप करा आणि WhatsApp वर पाठवा.</p>
+        <textarea id="orderList" placeholder="उदा: 2 किलो साखर, 1 किलो शेंगदाणे, 4 आंघोळीचे साबण..."></textarea>
+        <button onclick="sendWhatsApp()" class="offer-btn" style="background: #25d366; color: white; width: 100%; border: none; cursor: pointer;">
+            <i class="fab fa-whatsapp"></i> Send List to Shop
+        </button>
+    </section>
+
+    <footer>
+        <h3>SHREE GANESH SUPER MARKET</h3>
+        <p>Main Bazaar Peth, Near Temple, Rashin - 414403</p>
+        <p>Call for Home Delivery: +91 98765 43210</p>
+    </footer>
+
+    <a href="https://wa.me/919876543210" class="whatsapp-float">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script>
+        function sendWhatsApp() {
+            var text = document.getElementById("orderList").value;
+            if(text === "") {
+                alert("Please write items in the list!");
+                return;
+            }
+            // Replace with shop owner's number
+            var phone = "919876543210"; 
+            var url = "https://wa.me/" + phone + "?text=" + encodeURIComponent("Hi, Please deliver this order: \n" + text);
+            window.open(url, '_blank');
+        }
+    </script>
+
+</body>
+</html>
